@@ -7,13 +7,6 @@ import math
 from math import pi
 import easysensors
 
-robot_operating = True
-
-# required for gracefull exits of the script
-def signal_handler(signal, frame):
-    global robot_operating
-    print("CTRL-C combination pressed")
-    robot_operating = False
         
 class GoPiGo3WithKeyboard(object):
 
@@ -22,7 +15,6 @@ class GoPiGo3WithKeyboard(object):
 
     servo1_position = 0
     servo2_position = 0
-
     
     ###------- MAIN MENU -------###
     def __init__(self):
@@ -45,7 +37,8 @@ class GoPiGo3WithKeyboard(object):
             "<ESC>" : ["Exit", "exit"],
         }
         self.order_of_keys = ["w", "1", "2", "3", "<SPACE>", "<LEFT>", "<UP>", "<RIGHT>", "<DOWN>", "<ESC>"]
-    
+  
+
     ###------- BUILT-IN FUNCTIONS (don't change any of these) -------###
     def executeKeyboardJob(self, argument):
         method_prefix = "_gopigo3_command_"
@@ -87,6 +80,7 @@ class GoPiGo3WithKeyboard(object):
         except KeyError:
             print("Error: Keys found GoPiGo3WithKeyboard.order_of_keys don't match with those in GoPiGo3WithKeyboard.keybindings.")
 
+            
     ###------- ROBOT FUNCTIONS (customize as you please) -------###
     def _gopigo3_command_delivery(self):
         self.dvc_drive_in(107)
@@ -137,7 +131,9 @@ class GoPiGo3WithKeyboard(object):
             
         # Directly print the values of the sensor.
         print("Current Speed: {} DPS".format(self.gopigo3.get_speed()))
-            
+   
+
+    ###------- CUSTOMIZED FUNCTIONS (use these for Bronze/Silver/Gold Tiers) -------###
     def dvc_drive_in(self, dist, blocking=True):      
         # convert inches to mm
         dist_cm = dist * 2.54
@@ -170,8 +166,7 @@ class GoPiGo3WithKeyboard(object):
                 # self._gopigo3_command_test_distance_sensor()
                 self.read_sensor()
                 time.sleep(0.1)
-                
-
+    
     
     ###------- SERVO FUNCTIONS (copied over from ServoControl example) -------###
     def _gopigo3_command_servo_total_left(self):
@@ -195,9 +190,3 @@ class GoPiGo3WithKeyboard(object):
 
     def _gopigo3_command_exit(self):
         return "exit"
-    
-if __name__ == "__main__": #NOTE: Currently not working to break the robot's route ???
-    # signal handler
-    # handles the CTRL-C combination of keys
-    signal.signal(signal.SIGINT, signal_handler)
-    _gopigo3_command_delivery()
