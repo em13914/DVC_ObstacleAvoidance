@@ -12,17 +12,13 @@ class GoPiGo3WithKeyboard(object):
 
     KEY_DESCRIPTION = 0
     KEY_FUNC_SUFFIX = 1
-
-    servo1_position = 0
-    servo2_position = 0
     
     ###------- MAIN MENU -------###
     def __init__(self):
         self.gopigo3 = easy.EasyGoPiGo3()
-        self.servo1 = self.gopigo3.init_servo("SERVO1")
         
         self.keybindings = {
-		    "w" : ["Move the GoPiGo3 forward", "forward"],
+	    "w" : ["Move the GoPiGo3 forward", "forward"],
             "<SPACE>" : ["Stop the GoPiGo3 from moving", "stop"],
 
             "<UP>" : ["Take a distance sensor reading then adjust motor speed", "read_respond_sensor"],
