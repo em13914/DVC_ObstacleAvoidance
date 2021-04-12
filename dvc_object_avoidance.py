@@ -83,6 +83,7 @@ class GoPiGo3WithKeyboard(object):
             
     ###------- ROBOT FUNCTIONS (customize as you please) -------###
     def _gopigo3_command_delivery(self):
+        # your delivery route here!
         self.dvc_drive_in(107)
         self.gopigo3.turn_degrees(-90)
         self.dvc_drive_in(84)
@@ -163,8 +164,8 @@ class GoPiGo3WithKeyboard(object):
                     StartPositionRight + WheelTurnDegrees) is False:
                 
                 # inside the WHILE loop we make a call to the 'test_distance_sensor' function
-                # self._gopigo3_command_test_distance_sensor()
-                self.read_sensor()
+                # notice how since the function we are using is defined HERE in this file we do not need the '.gopigo3'
+                self._gopigo3_command_test_distance_sensor()
                 time.sleep(0.1)
     
     
