@@ -92,20 +92,22 @@ class GoPiGo3WithKeyboard(object):
         my_distance_sensor = self.gopigo3.init_distance_sensor()
         print("Distance Sensor Reading: {} mm ".format(my_distance_sensor.read_mm()))
 		
-    def _gopigo3_read_respond_sensor(self):
-        # call the test_sensor function to get a reading and print to console
-		# notice how you do NOT need the ".gopigo3" in the function call because you are NOT calling a function from the easygopigo3.py file
-        self._gopigo3_command_test_sensor
+    def _gopigo3_command_read_respond_sensor(self):
+	    # initialize the sensor then print the current reading
+        my_distance_sensor = self.gopigo3.init_distance_sensor()
+        print("Distance Sensor Reading: {} mm ".format(my_distance_sensor.read_mm()))
         
         if (my_distance_sensor.read_mm() < 150):
             self.gopigo3.set_speed(1) #NOTE: Setting speed to '0' causes the robot to move at max speed backward then forward ???
-            print("stopped")
+            print("obstacle detected!")
         elif (my_distance_sensor.read_mm() < 750):
             self.gopigo3.set_speed(150)
+            print("obstacle approaching...")
         else:
             self.gopigo3.set_speed(300)
+            print("coast is clear!")
             
-        # Directly print the values of the sensor.
+        # read the current motor speed and print
         print("Current Speed: {} DPS".format(self.gopigo3.get_speed()))
        
 
