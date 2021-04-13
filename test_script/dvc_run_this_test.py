@@ -20,7 +20,7 @@ from __future__ import division
 
 # module for interfacing with the GoPiGo3 from
 # a terminal with a keyboard
-from dvc_object_avoidance import GoPiGo3WithKeyboard
+from dvc_object_avoidance_test import GoPiGo3WithKeyboard
 # module for capturing input events from the keyboard
 from curtsies import Input
 import signal
