@@ -108,6 +108,7 @@ class GoPiGo3WithKeyboard(object):
         self.gopigo3.stop()
         return "moving"
 
+
     ###------- DISTANCE SENSOR FUNCTIONS (exactly the same as in the simplified file you saw previously) -------###
     def _gopigo3_command_test_sensor(self):
         # initialize the sensor then print the current reading
