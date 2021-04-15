@@ -31,7 +31,7 @@ class GoPiGo3WithKeyboard(object):
             "<LEFT>" : ["Turn servo completely to 0 degrees", "servo_total_left"],
             "<UP>" : ["Turn servo to 90 degrees (centered)", "servo_total_center"],
             "<RIGHT>" : ["Turn servo completely to 180 degrees", "servo_total_right"],
-            "<DOWN>" : ["Take a distance sensor reading", "test_distance_sensor"],
+            "<DOWN>" : ["Take a distance sensor reading", "test_sensor"],
             
 
             "<ESC>" : ["Exit", "exit"],
@@ -92,49 +92,45 @@ class GoPiGo3WithKeyboard(object):
 
         return "moving"
 
-    def _gopigo3_command_test_distance_sensor(self):
-        my_distance_sensor = self.gopigo3.init_distance_sensor()
-        print(my_distance_sensor.read_mm())
-
-        return "moving"
-    def _gopigo3_command_bronze(self):
+     def _gopigo3_command_bronze(self):
         print("Your Code Here")
-
         return "moving"
 
     def _gopigo3_command_silver(self):
         print("Your Code Here")
-
         return "moving"
 
     def _gopigo3_command_gold(self):
         print("Your Code Here")
-
         return "moving"
 
     def _gopigo3_command_stop(self):
         self.gopigo3.stop()
-
         return "moving"
 
-    def read_sensor(self):
+    ###------- DISTANCE SENSOR FUNCTIONS (exactly the same as in the simplified file you saw previously) -------###
+    def _gopigo3_command_test_sensor(self):
         # initialize the sensor then print the current reading
+        my_distance_sensor = self.gopigo3.init_distance_sensor()
+        print("Distance Sensor Reading: {} mm ".format(my_distance_sensor.read_mm()))
+
+    def _gopigo3_command_read_respond_sensor(self):
+	# initialize the sensor then print the current reading
         my_distance_sensor = self.gopigo3.init_distance_sensor()
         print("Distance Sensor Reading: {} mm ".format(my_distance_sensor.read_mm()))
         
         if (my_distance_sensor.read_mm() < 150):
             self.gopigo3.set_speed(1) #NOTE: Setting speed to '0' causes the robot to move at max speed backward then forward ???
-            print("stopped")
+            print("obstacle detected!")
         elif (my_distance_sensor.read_mm() < 750):
             self.gopigo3.set_speed(150)
+            print("obstacle approaching...")
         else:
             self.gopigo3.set_speed(300)
-            
-        # Directly print the values of the sensor.
-        print("Current Speed: {} DPS".format(self.gopigo3.get_speed()))
+            print("coast is clear!")
    
 
-    ###------- CUSTOMIZED FUNCTIONS (use these for Bronze/Silver/Gold Tiers) -------###
+    ###------- CUSTOMIZED FUNCTIONS (modified from the drive_in function in easygopigo3.py) -------###
     def dvc_drive_in(self, dist, blocking=True):      
         # convert inches to mm
         dist_cm = dist * 2.54
@@ -165,7 +161,7 @@ class GoPiGo3WithKeyboard(object):
                 
                 # inside the WHILE loop we make a call to the 'test_distance_sensor' function
                 # notice how since the function we are using is defined HERE in this file we do not need the '.gopigo3'
-                self._gopigo3_command_test_distance_sensor()
+                self._gopigo3_command_test_sensor()
                 time.sleep(0.1)
     
     
@@ -173,19 +169,16 @@ class GoPiGo3WithKeyboard(object):
     def _gopigo3_command_servo_total_left(self):
         self.servo1_position = 0
         self.servo1.rotate_servo(self.servo1_position)
-
         return "complete_turn_servo1"
 
     def _gopigo3_command_servo_total_center(self):
         self.servo1_position = 90
         self.servo1.rotate_servo(self.servo1_position)
-
         return "complete_turn_servo1"
     
     def _gopigo3_command_servo_total_right(self):
         self.servo1_position = 180
         self.servo1.rotate_servo(self.servo1_position)
-
         return "complete_turn_servo1"
    
 
