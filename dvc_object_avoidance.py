@@ -92,7 +92,7 @@ class GoPiGo3WithKeyboard(object):
 
         return "moving"
 
-     def _gopigo3_command_bronze(self):
+    def _gopigo3_command_bronze(self):
         print("Your Code Here")
         return "moving"
 
