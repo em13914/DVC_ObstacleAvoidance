@@ -84,7 +84,7 @@ class GoPiGo3WithKeyboard(object):
     ###------- ROBOT FUNCTIONS (customize as you please) -------###
     def _gopigo3_command_delivery(self):
         # your Phase 12 delivery route here!
-	self.gopigo3.drive_inches(107)
+        self.gopigo3.drive_inches(107)
         self.gopigo3.turn_degrees(-90)
         self.gopigo3.drive_inches(84)
         self.gopigo3.turn_degrees(90)
