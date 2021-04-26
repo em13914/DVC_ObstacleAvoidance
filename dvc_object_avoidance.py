@@ -83,17 +83,20 @@ class GoPiGo3WithKeyboard(object):
             
     ###------- ROBOT FUNCTIONS (customize as you please) -------###
     def _gopigo3_command_delivery(self):
-        # your delivery route here!
-        self.dvc_drive_in(107)
+        # your Phase 12 delivery route here!
+	self.gopigo3.drive_inches(107)
         self.gopigo3.turn_degrees(-90)
-        self.dvc_drive_in(84)
+        self.gopigo3.drive_inches(84)
         self.gopigo3.turn_degrees(90)
-        self.dvc_drive_in(46)
-
+        self.gopigo3.drive_inches(46)
         return "moving"
 
     def _gopigo3_command_bronze(self):
-        print("Your Code Here")
+        self.gopigo3.drive_inches(107)
+        self.gopigo3.turn_degrees(-90)
+        self.gopigo3.drive_inches(84)
+        self.gopigo3.turn_degrees(90)
+        self.dvc_drive_in(46)
         return "moving"
 
     def _gopigo3_command_silver(self):
